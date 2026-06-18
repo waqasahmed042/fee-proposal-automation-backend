@@ -4,12 +4,12 @@ const config = require("./config");
 
 const router = express.Router();
 
-// ── Health ────────────────────────────────────────────────────────────────────
+// Health
 router.get("/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// ── STEP 1: Upload DOCX → POST /api/upload-template ──────────────────────────
+// STEP 1: Upload DOCX → POST /api/upload-template
 router.post("/api/upload-template", async (req, res) => {
   try {
     const { documentBase64, templateName } = req.body;
@@ -26,7 +26,7 @@ router.post("/api/upload-template", async (req, res) => {
         documents: [
           {
             name: "proposal.docx",
-            file: documentBase64, // base64-encoded .docx
+            file: documentBase64,
           },
         ],
       },
@@ -68,7 +68,7 @@ router.post("/api/upload-template", async (req, res) => {
   }
 });
 
-// ── STEP 2: Get template → GET /api/get-template/:templateId ─────────────────
+// STEP 2: Get template → GET /api/get-template/:templateId
 router.get("/api/get-template/:templateId", async (req, res) => {
   try {
     const { templateId } = req.params;
@@ -101,7 +101,7 @@ router.get("/api/get-template/:templateId", async (req, res) => {
   }
 });
 
-// ── STEP 3: Send proposal → POST /api/send-proposal ──────────────────────────
+// STEP 3: Send proposal → POST /api/send-proposal
 router.post("/api/send-proposal", async (req, res) => {
   try {
     const {
@@ -181,7 +181,7 @@ router.post("/api/send-proposal", async (req, res) => {
   }
 });
 
-// ── GET ALL TEMPLATES → GET /api/all-templates ─────────────────────────────
+// GET ALL TEMPLATES → GET /api/all-templates
 router.get("/api/all-templates", async (req, res) => {
   try {
     const response = await axios.get(
